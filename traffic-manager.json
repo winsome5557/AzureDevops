@@ -39,17 +39,13 @@
         "endpoints": [
           {
             "name": "[parameters('EndPoints')[copyIndex()].PublicEndPointPIPName]",
+            "count": "[length(parameters('EndPoints'))]",            
             "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
             "properties": {
               "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
               "priority": 1,
               "endpointStatus": "Enabled"
             }
-            ,
-            "copy": {
-              "name": "EndPointParameters",
-              "count": "[length(parameters('EndPoints'))]"
-            }            
           }
         ],
         "trafficViewEnrollmentStatus": "Disabled",
