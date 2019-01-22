@@ -44,15 +44,15 @@
               "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
               "priority": 1,
               "endpointStatus": "Enabled"
-            },
-            "copy": {
-              "name": "EndPointParameters",
-              "count": "[length(parameters('EndPoints'))]"
             }
           }
         ],
         "trafficViewEnrollmentStatus": "Disabled",
         "maxReturn": 0
+      },
+      "copy": {
+        "name": "EndPointParameters",
+        "count": "[length(parameters('EndPoints'))]"
       },
       "dependsOn": []
     }
