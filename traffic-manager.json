@@ -45,6 +45,11 @@
               "priority": 1,
               "endpointStatus": "Enabled"
             }
+            ,
+            "copy": {
+              "name": "EndPointParameters",
+              "count": "[length(parameters('EndPoints'))]"
+            }            
           }
         ],
         "trafficViewEnrollmentStatus": "Disabled",
