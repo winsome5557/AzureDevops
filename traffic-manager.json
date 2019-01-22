@@ -36,18 +36,20 @@
           "toleratedNumberOfFailures": 3,
           "timeoutInSeconds": 10
         },
-        "endpoints": [
-          {
-            "name": "[parameters('EndPoints')[copyIndex()].PublicEndPointPIPName]",
-            "count": "[length(parameters('EndPoints'))]",            
-            "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
-            "properties": {
+        "copy": [{
+          "name": "endPoints",
+          "count": "[length(parameters('EndPoints'))]",
+          "input": {
+              "name": "[parameters('EndPoints')[copyIndex()].PublicEndPointPIPName]",
+              "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+	        "properties": {
               "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
               "priority": 1,
               "endpointStatus": "Enabled"
-            }
-          }
-        ],
+          }          
+      	}
+      }]
+        ,
         "trafficViewEnrollmentStatus": "Disabled",
         "maxReturn": 0
       },
