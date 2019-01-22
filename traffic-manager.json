@@ -36,24 +36,27 @@
           "toleratedNumberOfFailures": 3,
           "timeoutInSeconds": 10
         },
-        "copy": [{
-          "name": "endPoints",
-          "count": "[length(parameters('EndPoints'))]",
-          "input": {
-              "name": "[parameters('EndPoints')[copyIndex()].PublicEndPointPIPName]",
-              "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
-	        "properties": {
-              "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
-              "priority": 1,
-              "endpointStatus": "Enabled"
-          }          
-      	}
-      }]
-        ,
         "trafficViewEnrollmentStatus": "Disabled",
         "maxReturn": 0
-      },
-      "dependsOn": []
+      }
     }
+    ,
+    {
+      "apiVersion": "2018-04-01",
+      "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+      "dependsOn": [
+        "[parameters('trafficManagerProfileName')]"
+      ],
+      "location": "global",
+      "name": "[parameters('EndPoints')[copyIndex()].PublicEndPointPIPName]",
+      "copy": {
+        "name": "endpointloop",
+        "count": "[length(parameters('EndPoints'))]"
+      },
+      "properties": {
+        "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
+        "endpointStatus": "Enabled"
+      }
+    }    
   ]
 }
