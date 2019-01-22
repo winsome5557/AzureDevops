@@ -50,10 +50,6 @@
         "trafficViewEnrollmentStatus": "Disabled",
         "maxReturn": 0
       },
-      "copy": {
-        "name": "EndPointParameters",
-        "count": "[length(parameters('EndPoints'))]"
-      },
       "dependsOn": []
     }
   ]
