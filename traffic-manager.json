@@ -48,7 +48,7 @@
         "[parameters('trafficManagerProfileName')]"
       ],
       "location": "global",
-      "name": "[concat(concat(parameters('trafficManagerProfileName'), '/Endpoint'),copyIndex())]",
+      "name": "[concat(concat(parameters('trafficManagerProfileName'), '/Endpoint'),parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
       "copy": {
         "name": "endpointloop",
         "count": "[length(parameters('EndPoints'))]"
