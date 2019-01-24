@@ -32,10 +32,10 @@
           },
           "appGatewayCapacity": {
             "type": "int"
-          },  
+          }, 
           "subnetResourceId": {
-            "value": "[resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
-         },           
+            "type": "string"
+        },         
           "apimBackEnds": {
             "type": "array",
             "defaultValue": []
