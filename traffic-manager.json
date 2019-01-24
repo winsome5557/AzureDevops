@@ -22,6 +22,7 @@
       "scale": null,
       "properties": {
         "profileStatus": "Enabled",
+        "mode": "Incremental",
         "trafficRoutingMethod": "Performance",
         "dnsConfig": {
           "relativeName": "[parameters('trafficManagerProfileName')]",
