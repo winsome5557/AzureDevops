@@ -124,7 +124,8 @@
             "[parameters('applicationGatewayName')]"
           ],
           "copy": {
-            "count": "[length(parameters('apimBackEnds'))]"
+            "count": "[length(parameters('apimBackEnds'))]",
+            "name":"httpSettingsLoop"
           },         
           "properties": {
             "port": 443,
