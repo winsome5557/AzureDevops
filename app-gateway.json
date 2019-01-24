@@ -74,7 +74,7 @@
                         "name": "appGatewayFrontendIP",
                         "properties": {
                             "publicIPAddress": {
-                                "id": "[reference(variables('appGatewayPublicIPResourceId'),'2018-01-01','Full').value.Id]"
+                                "id": "[reference(resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName')),'2018-01-01','Full').value.Id]"
                             }
                         }
                     }
