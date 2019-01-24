@@ -95,14 +95,13 @@
                 }
             }
         },
-
         {
+          "name":  "appGatewayBackendPool",
           "apiVersion": "2018-04-01",
-          "type": "Microsoft.Network/applicationGateways/backendAddressPools",
+          "type": "applicationGateways/backendAddressPools",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
           ],
-          "name":  "appGatewayBackendPool",
           "copy": {
             "name": "backendPoolsloop",
             "count": "[length(parameters('apimBackEnds'))]"
