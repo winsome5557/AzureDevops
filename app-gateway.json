@@ -24,7 +24,7 @@
           "appGatewaySkuName": {
             "type": "string"
           },
-          "ResourceGroupName": {
+          "SharedResourceGroupName": {
             "type": "string"
           },
           "KeyVaultName": {
@@ -34,10 +34,10 @@
             "type": "string"
           },
           "appGatewaySubnetResourceId": {
-            "value": "[resourceId(parameters('ResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
+            "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
         },      
         "appGatewayPublicIPResourceId": {
-            "value": "[resourceId(parameters('ResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
+            "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
         },             
           "apimBackEnds": {
             "type": "array",
@@ -111,7 +111,7 @@
             "mode": "Incremental",
             "backendAddresses": [
               {
-                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].ResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name)).properties.privateIPAddresses[0]]"
+                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].APIMResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name)).properties.privateIPAddresses[0]]"
               }
             ]
           }
