@@ -79,6 +79,11 @@
                         }
                     }
                 ],
+                "backendAddressPools": [
+                    {
+                      "Dummy": "dummy"
+                    }
+                  ],
                 "frontendPorts": [
                     {
                         "name": "appGatewayFrontendPort",
