@@ -55,7 +55,8 @@
       },
       "properties": {
         "targetResourceId": "[resourceId(parameters('EndPoints')[copyIndex()].PublicEndPointSubscriptionId,parameters('EndPoints')[copyIndex()].PublicEndPointResourceGroupName, 'Microsoft.Network/publicIPAddresses', parameters('EndPoints')[copyIndex()].PublicEndPointPIPName)]",
-        "endpointStatus": "Enabled"
+        "endpointStatus": "Enabled",
+        "mode": "Incremental"
       }
     }    
   ]
