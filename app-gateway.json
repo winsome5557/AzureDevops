@@ -31,7 +31,7 @@
             "type": "string"
           },
           "appGatewayCapacity": {
-            "type": "string"
+            "type": "int"
           },             
           "apimBackEnds": {
             "type": "array",
