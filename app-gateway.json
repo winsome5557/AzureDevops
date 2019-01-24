@@ -32,7 +32,10 @@
           },
           "appGatewayCapacity": {
             "type": "int"
-          },             
+          },  
+          "subnetResourceId": {
+            "value": "[resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
+         },           
           "apimBackEnds": {
             "type": "array",
             "defaultValue": []
@@ -42,7 +45,8 @@
            "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName'))]",
            "appGatewaySubnetResourceId": {
             "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
-            },      
+            },    
+                  
             "appGatewayPublicIPResourceId": {
              "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
             }
@@ -64,7 +68,7 @@
                         "name": "appGatewayIpConfig",
                         "properties": {
                             "subnet": {
-                                "id": "[variables('appGatewaySubnetResourceId')]"
+                                "id": "[parameters('subnetResourceId')]"
                             }
                         }
                     }   
