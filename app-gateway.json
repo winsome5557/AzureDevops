@@ -96,9 +96,9 @@
             }
         },
         {
-          "name":  "appGatewayBackendPool",
+          "name": "[concat(concat(parameters('applicationGatewayName'), '/appGatewayBackendPool-'),parameters('apimBackEnds')[copyIndex()].Name)]",
           "apiVersion": "2018-04-01",
-          "type": "applicationGateways/backendAddressPools",
+          "type": "Microsoft.Network/applicationGateways/backendAddressPools",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
           ],
@@ -117,16 +117,15 @@
         }        
         ,
         {
-          "apiVersion": "2018-04-01",
+            "name": "[concat(concat(parameters('applicationGatewayName'), '/backEndHttpSettings-apiHttpSettingName-'),parameters('apimBackEnds')[copyIndex()].Name)]",
+            "apiVersion": "2018-04-01",
           "type": "applicationGateways/backendHttpSettingsCollection",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
           ],
           "copy": {
-            "name": "httpSettingsloop",
             "count": "[length(parameters('apimBackEnds'))]"
           },         
-          "name": "[parameters('apimBackEnds')[copyIndex()].backEndHttpSettings[0].apiHttpSettingName]",
           "properties": {
             "port": 443,
             "protocol": "Https",
