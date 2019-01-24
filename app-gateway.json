@@ -74,7 +74,7 @@
                         "name": "appGatewayFrontendIP",
                         "properties": {
                             "publicIPAddress": {
-                                "id": "[Reference(variables('appGatewayPublicIPResourceId'),'2018-01-01','Full').value.Id]"
+                                "id": "[reference(variables('appGatewayPublicIPResourceId'),'2018-01-01','Full').value.Id]"
                             }
                         }
                     }
