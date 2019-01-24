@@ -141,6 +141,7 @@
                 }
             }
         },
+        
         {
           "name": "[concat(concat(parameters('applicationGatewayName'), '/appGatewayBackendPool-'),parameters('apimBackEnds')[copyIndex()].Name)]",
           "apiVersion": "2018-04-01",
@@ -167,8 +168,7 @@
           "apiVersion": "2018-04-01",
           "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection",
           "dependsOn": [
-            "[parameters('applicationGatewayName')]",
-            "[parameters('appGatewaypublicIpAddressName')]"
+            "[parameters('applicationGatewayName')]"
           ],
           "copy": {
             "name":"httpSettingsLoop",
@@ -196,9 +196,7 @@
              "apiVersion": "2018-04-01",
              "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection",
              "dependsOn": [
-              "[parameters('applicationGatewayName')]",
-              "[parameters('appGatewaypublicIpAddressName')]"
-            ],
+              "[parameters('applicationGatewayName')]"            ],
             "copy": {
               "name": "httpSettingsloop",
               "count": "[length(parameters('apimBackEnds'))]"
