@@ -84,9 +84,13 @@
                         "name": "dummy"
                     }
                   ],
-                  "backendHttpSettingsCollection": [
+                "backendHttpSettingsCollection": [
                     {
-                      "name": "dummy"
+                      "name": "dummy",
+                      "properties": {
+                        "Port": "443",
+                        "Protocol": "Http"
+                      }
                     }
                   ],
                 "frontendPorts": [
