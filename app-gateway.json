@@ -142,33 +142,6 @@
                 }
             ]
             }
-        },
-        {
-            "apiVersion": "2018-04-01",
-            "type": "applicationGateways/backendHttpSettingsCollection",
-            "dependsOn": [
-              "[parameters('applicationGatewayName')]"
-            ],
-            "copy": {
-              "name": "httpSettingsloop",
-              "count": "[length(parameters('apimBackEnds'))]"
-            },      
-            "name": "[parameters('apimBackEnds')[copyIndex()].backEndHttpSettings[0].portalHttpSettingName]",
-            "properties": {
-                "port": 443,
-                "protocol": "Https",
-                "cookieBasedAffinity": "Disabled",
-                "probe": {
-                    "id": "[concat(variables('applicationGatewayID'), '/probes/apimPortalProbe')]"
-                },
-                "requestTimeout": 180,
-                "hostName": "[parameters('apimBackEnds')[copyIndex()].PortalHostName]",
-                "authenticationCertificates": [
-                    {
-                        "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewayBackendCert')]"
-                    }
-                ]
-            }
         }
     ],
     "outputs": {}
