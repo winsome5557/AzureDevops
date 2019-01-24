@@ -122,18 +122,17 @@
                       "properties": {
                         "RuleType": "Basic",
                         "httpListener": {
-                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/appGatewayHttpListener')]"
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/dummy')]"
                         },
                         "backendAddressPool": {
-                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/appGatewayBackendPool')]"
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/dummy')]"
                         },
                         "backendHttpSettings": {
-                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/dummy')]"
                         }
                       }
                     }
                   ],
-                   
                  "webApplicationFirewallConfiguration": {
                     "enabled": true,
                     "firewallMode": "Prevention",
