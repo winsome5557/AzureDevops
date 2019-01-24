@@ -110,7 +110,7 @@
             "mode": "Incremental",
             "backendAddresses": [
               {
-                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].APIMResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name)).properties.privateIPAddresses[0]]"
+                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].APIMResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name),'2018-04-01').properties.privateIPAddresses[0]]"
               }
             ]
           }
