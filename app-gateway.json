@@ -142,7 +142,36 @@
                 }
             ]
             }
+        },
+     
+        {
+            "name": "[concat(concat(parameters('applicationGatewayName'), '/backEndHttpSettings-portalHttpSettingName-'),parameters('apimBackEnds')[copyIndex()].Name)]",
+             "apiVersion": "2018-04-01",
+             "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection",
+             "dependsOn": [
+              "[parameters('applicationGatewayName')]"
+            ],
+            "copy": {
+              "name": "httpSettingsloop",
+              "count": "[length(parameters('apimBackEnds'))]"
+            },      
+            "properties": {
+                "port": 443,
+                "protocol": "Https",
+                "cookieBasedAffinity": "Disabled",
+                "probe": {
+                    "id": "[concat(variables('applicationGatewayID'), '/probes/apimPortalProbe')]"
+                },
+                "requestTimeout": 180,
+                "hostName": "[parameters('apimBackEnds')[copyIndex()].PortalHostName]",
+                "authenticationCertificates": [
+                    {
+                        "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewayBackendCert')]"
+                    }
+                ]
+            }
         }
+
     ],
     "outputs": {}
 }
