@@ -97,7 +97,7 @@
                     {
                         "name": "appGatewayFrontendPort",
                         "properties": {
-                            "port": 443
+                            "port": 80
                         }
                     }
                 ],
