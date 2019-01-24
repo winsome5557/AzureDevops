@@ -101,6 +101,21 @@
                         }
                     }
                 ],
+                "httpListeners": [
+                    {
+                      "name": "dummy",
+                      "properties": {
+                        "FrontendIpConfiguration": {
+                          "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                        },
+                        "FrontendPort": {
+                          "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/frontendPorts/appGatewayFrontendPort')]"
+                        },
+                        "Protocol": "Http",
+                        "SslCertificate": null
+                      }
+                    }
+                  ],
                  "webApplicationFirewallConfiguration": {
                     "enabled": true,
                     "firewallMode": "Prevention",
