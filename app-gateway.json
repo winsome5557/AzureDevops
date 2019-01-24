@@ -119,7 +119,7 @@
         {
           "name": "[concat(concat(parameters('applicationGatewayName'), '/backEndHttpSettings-apiHttpSettingName-'),parameters('apimBackEnds')[copyIndex()].Name)]",
           "apiVersion": "2018-04-01",
-          "type": "applicationGateways/backendHttpSettingsCollection",
+          "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
           ],
