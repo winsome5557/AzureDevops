@@ -81,7 +81,7 @@
                 ],
                 "backendAddressPools": [
                     {
-                      "Dummy": "dummy"
+                        "name": "dummy"
                     }
                   ],
                 "frontendPorts": [
