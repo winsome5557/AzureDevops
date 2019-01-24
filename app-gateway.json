@@ -116,6 +116,24 @@
                       }
                     }
                   ],
+                  "requestRoutingRules": [
+                    {
+                      "Name": "rule1",
+                      "properties": {
+                        "RuleType": "Basic",
+                        "httpListener": {
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/appGatewayHttpListener')]"
+                        },
+                        "backendAddressPool": {
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/appGatewayBackendPool')]"
+                        },
+                        "backendHttpSettings": {
+                          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                        }
+                      }
+                    }
+                  ],
+                   
                  "webApplicationFirewallConfiguration": {
                     "enabled": true,
                     "firewallMode": "Prevention",
