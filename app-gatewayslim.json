@@ -148,8 +148,7 @@
     },
         {
           "name": "pool1",
-          "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/pool1')]",
-          "apiVersion": "2018-04-01",
+         "apiVersion": "2018-04-01",
           "type": "Microsoft.Network/applicationGateways/backendAddressPools",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
