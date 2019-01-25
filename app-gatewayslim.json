@@ -86,13 +86,12 @@
             ],
             "backendAddressPools": [
                 {
-                    "name": "dummy"
-                    
-                },
-                {
-                  "name": "dummy5"
-                  
-              }
+                    "name": "[concat('dummy',copyIndex())]",
+                    "copy": {
+                      "name": "backendPoolsloop",
+                      "count": 2
+                    }
+                }
               ],
             "backendHttpSettingsCollection": [
                 {
