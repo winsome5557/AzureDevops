@@ -149,7 +149,7 @@
         {
           "name": "[concat(concat(parameters('applicationGatewayName'), '/backendAddressPools/appGatewayBackendPool-'),parameters('apimBackEnds')[copyIndex()].Name)]",
           "apiVersion": "2018-04-01",
-          "type": "Microsoft.Network/applicationGateways/backendAddressPools",
+          "type": "Microsoft.Network/applicationGateways",
           "dependsOn": [
             "[parameters('applicationGatewayName')]"
           ],
