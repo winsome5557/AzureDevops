@@ -1,0 +1,115 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appGatewaySubnetName": {
+      "type": "string"
+    },
+    "appGatewayVirtualNetworkName": {
+      "type": "string"
+    },
+    "appGatewaypublicIpAddressName": {
+      "type": "string"
+    },
+    "applicationGatewayName": {
+      "type": "string"
+    },
+    "appGatewaySkuName": {
+      "type": "string"
+    },
+    "SharedResourceGroupName": {
+      "type": "string"
+    },
+    "KeyVaultName": {
+      "type": "string"
+    },
+    "appGatewayCapacity": {
+      "type": "int"
+    },
+    "apimBackEnds": {
+      "type": "array",
+      "defaultValue": []
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "apiVersion": "2017-05-10",
+      "name": "app-gateway-public-ip",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/DFE-Digital/eapim-infrastructure/master/apim/deployments/public-ip.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpAddressName": {
+            "value": "[parameters('appGatewaypublicIpAddressName')]"
+          },
+          "publicIpAddressSku": {
+            "value": "Basic"
+          },
+          "publicIpAddressAllocationMethod": {
+            "value": "Dynamic"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "app-gateway",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/winsome5557/AzureDevops/master/app-gatewayslim.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+
+          "apimBackEnds": {
+            "value": "[parameters('apimBackEnds')]"
+          },
+          "applicationGatewayName": {
+            "value": "[parameters('applicationGatewayName')]"
+          },
+          "applicationGatewaySku": {
+            "value": "WAF_Medium"
+          },
+          "appGatewaySubnetName": {
+            "value": "[parameters('appGatewaySubnetName')]"
+          },
+          "appGatewayVirtualNetworkName": {
+            "value": "[parameters('appGatewayVirtualNetworkName')]"
+          },
+          "appGatewaypublicIpAddressName": {
+            "value": "[parameters('appGatewaypublicIpAddressName')]"
+          },
+          "appGatewaySkuName": {
+            "value": "[parameters('appGatewaySkuName')]"
+          },
+          "SharedResourceGroupName": {
+            "value": "[parameters('SharedResourceGroupName')]"
+          },
+          "KeyVaultName": {
+            "value": "[parameters('KeyVaultName')]"
+          },
+          "appGatewayCapacity": {
+            "value": "[parameters('appGatewayCapacity')]"
+          },
+
+          "subnetResourceId": {
+            "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
+          }
+        }
+      },
+
+      "dependsOn": [
+        "app-gateway-public-ip"
+      ]
+    }
+
+  ],
+  "outputs": {}
+}
