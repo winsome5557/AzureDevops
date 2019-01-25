@@ -49,7 +49,21 @@
                   
             "appGatewayPublicIPResourceId": {
              "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
-            }
+            },
+            "backEndPools": [
+              {
+                  "name": "[concat('backEndPools',copyIndex())]",
+                  "count": "[parameters('apimBackEnds')]",
+                  "properties": {
+                    "mode": "Incremental",
+                    "backendAddresses": [
+                      {
+                        "ipAddress":"[concat('172.3.9.',copyIndex())]"
+                      }
+                    ]
+                  }
+              }   
+            ]
     },
     "resources": [
        
@@ -84,11 +98,7 @@
                     }
                 }
             ],
-            "backendAddressPools": [
-                {
-                    "name": "dummy"
-                }
-              ],
+            "backendAddressPools": "[variables('backEndPools')]",
             "backendHttpSettingsCollection": [
                 {
                   "name": "dummy",
@@ -145,29 +155,7 @@
                 "ruleSetVersion": "3.0"
             }
         }
-    },
-        {
-          "name":"eapim-dev-agw/backendAddressPool1",
-          "apiVersion": "2018-07-01",
-          "type": "Microsoft.Network/applicationGateways/backendAddressPools",
-          "location": "[resourceGroup().location]",
-          "dependsOn": [
-            "[parameters('applicationGatewayName')]"
-          ],
-          "copy": {
-            "name": "backendPoolsloop",
-            "count": "[length(parameters('apimBackEnds'))]"
-          },
-          "properties": {
-            "mode": "Incremental",
-            "backendAddresses": [
-              {
-                "ipAddress":"172.3.4.3"
-              }
-            ]
-          }
-        }        
-        
-    ],
+      }
+      ],
     "outputs": {}
 }
