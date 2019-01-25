@@ -49,21 +49,7 @@
                   
             "appGatewayPublicIPResourceId": {
              "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
-            },
-            "backEndPools": [
-              {
-                  "name": "[concat('backEndPools',copyIndex())]",
-                  "count": "[parameters('apimBackEnds')]",
-                  "properties": {
-                    "mode": "Incremental",
-                    "backendAddresses": [
-                      {
-                        "ipAddress":"[concat('172.3.9.',copyIndex())]"
-                      }
-                    ]
-                  }
-              }   
-            ]
+            }
     },
     "resources": [
        
