@@ -88,7 +88,11 @@
                 {
                     "name": "dummy"
                     
-                }
+                },
+                {
+                  "name": "dummy5"
+                  
+              }
               ],
             "backendHttpSettingsCollection": [
                 {
