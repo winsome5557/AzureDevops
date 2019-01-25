@@ -1,0 +1,80 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "applicationGatewayName": {
+            "type": "string"
+        },
+            "applicationGatewaySku": {
+                "type": "string",
+                "allowedValues": [
+                    "WAF_Medium",
+                    "WAF_Large"
+                ]
+            },
+           "appGatewaySubnetName": {
+                "type": "string"
+            },
+          "appGatewayVirtualNetworkName": {
+            "type": "string"
+          },
+          "appGatewaypublicIpAddressName": {
+            "type": "string"
+          },
+          "appGatewaySkuName": {
+            "type": "string"
+          },
+          "SharedResourceGroupName": {
+            "type": "string"
+          },
+          "KeyVaultName": {
+            "type": "string"
+          },
+          "appGatewayCapacity": {
+            "type": "int"
+          }, 
+          "subnetResourceId": {
+            "type": "string"
+        },         
+          "apimBackEnds": {
+            "type": "array",
+            "defaultValue": []
+          }
+    },
+    "variables": {
+           "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName'))]",
+           "appGatewaySubnetResourceId": {
+            "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('appGatewayVirtualNetworkName'), parameters('appGatewaySubnetName'))]"
+            },    
+                  
+            "appGatewayPublicIPResourceId": {
+             "value": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
+            }
+    },
+    "resources": [
+       
+        
+        {
+          "name": "[concat(concat(parameters('applicationGatewayName'), '/appGatewayBackendPool-'),parameters('apimBackEnds')[copyIndex()].Name)]",
+          "apiVersion": "2018-04-01",
+          "type": "Microsoft.Network/applicationGateways/backendAddressPools",
+          "dependsOn": [
+            "[parameters('applicationGatewayName')]"
+          ],
+          "copy": {
+            "name": "backendPoolsloop",
+            "count": "[length(parameters('apimBackEnds'))]"
+          },
+          "properties": {
+            "mode": "Incremental",
+            "backendAddresses": [
+              {
+                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].APIMResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name),'2018-01-01','Full').properties.privateIPAddresses[0]]"
+              }
+            ]
+          }
+        }        
+        
+    ],
+    "outputs": {}
+}
