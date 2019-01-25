@@ -53,7 +53,99 @@
     },
     "resources": [
        
-        
+      {
+        "type": "Microsoft.Network/applicationGateways",
+        "name": "[parameters('applicationGatewayName')]",
+        "apiVersion": "2018-08-01",
+        "location": "[resourceGroup().location]",
+        "properties": {
+            "sku": {
+                "name": "[parameters('applicationGatewaySku')]",
+                "tier": "WAF",
+                "capacity": "[parameters('appGatewayCapacity')]"
+            },
+            "gatewayIPConfigurations": [
+                {
+                    "name": "appGatewayIpConfig",
+                    "properties": {
+                        "subnet": {
+                            "id": "[parameters('subnetResourceId')]"
+                        }
+                    }
+                }   
+            ],
+            "frontendIPConfigurations": [
+                {
+                    "name": "appGatewayFrontendIP",
+                    "properties": {
+                        "publicIPAddress": {
+                            "id": "[resourceId(parameters('SharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('appGatewaypublicIpAddressName'))]"
+                        }
+                    }
+                }
+            ],
+            "backendAddressPools": [
+                {
+                    "name": "dummy"
+                }
+              ],
+            "backendHttpSettingsCollection": [
+                {
+                  "name": "dummy",
+                  "properties": {
+                    "Port": "80",
+                    "Protocol": "Http"
+                  }
+                }
+              ],
+            "frontendPorts": [
+                {
+                    "name": "appGatewayFrontendPort",
+                    "properties": {
+                        "port": 80
+                    }
+                }
+            ],
+            "httpListeners": [
+                {
+                  "name": "dummy",
+                  "properties": {
+                    "FrontendIpConfiguration": {
+                      "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                    },
+                    "FrontendPort": {
+                      "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/frontendPorts/appGatewayFrontendPort')]"
+                    },
+                    "Protocol": "Http",
+                    "SslCertificate": null
+                  }
+                }
+              ],
+              "requestRoutingRules": [
+                {
+                  "Name": "rule1",
+                  "properties": {
+                    "RuleType": "Basic",
+                    "httpListener": {
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/dummy')]"
+                    },
+                    "backendAddressPool": {
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/dummy')]"
+                    },
+                    "backendHttpSettings": {
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/dummy')]"
+                    }
+                  }
+                }
+              ],
+             "webApplicationFirewallConfiguration": {
+                "enabled": true,
+                "firewallMode": "Prevention",
+                "ruleSetType": "OWASP",
+                "ruleSetVersion": "3.0"
+            }
+        }
+    },
         {
           "name": "[concat(concat(parameters('applicationGatewayName'), '/appGatewayBackendPool-'),parameters('apimBackEnds')[copyIndex()].Name)]",
           "apiVersion": "2018-04-01",
