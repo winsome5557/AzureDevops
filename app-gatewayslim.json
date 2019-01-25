@@ -161,7 +161,7 @@
             "mode": "Incremental",
             "backendAddresses": [
               {
-                "ipAddress": "[reference(resourceId(parameters('apimBackEnds')[copyIndex()].SubscriptionId,parameters('apimBackEnds')[copyIndex()].APIMResourceGroupName, 'Microsoft.ApiManagement/service', parameters('apimBackEnds')[copyIndex()].Name),'2018-01-01','Full').properties.privateIPAddresses[0]]"
+                "ipAddress":"172.3.4.3"
               }
             ]
           }
