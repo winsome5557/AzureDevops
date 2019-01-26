@@ -86,11 +86,7 @@
             ],
             "backendAddressPools": [
                 {
-                    "name": "[concat('Temp',copyIndex())]",
-                    "copy": {
-                      "name": "backendPoolsloop",
-                      "count": 2
-                    }
+                    "name": "Temp"
                 }
               ],
             "backendHttpSettingsCollection": [
