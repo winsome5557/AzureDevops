@@ -86,16 +86,12 @@
             ],
             "backendAddressPools": [
                 {
-                    "name": "[concat('dummy',copyIndex())]",
-                    "copy": {
-                      "name": "backendPoolsloop",
-                      "count": 2
-                    }
+                    "name": "Temp"
                 }
               ],
             "backendHttpSettingsCollection": [
                 {
-                  "name": "dummy",
+                  "name": "Temp",
                   "properties": {
                     "Port": "80",
                     "Protocol": "Http"
@@ -112,7 +108,7 @@
             ],
             "httpListeners": [
                 {
-                  "name": "dummy",
+                  "name": "Temp",
                   "properties": {
                     "FrontendIpConfiguration": {
                       "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/frontendIPConfigurations/appGatewayFrontendIP')]"
@@ -127,17 +123,17 @@
               ],
               "requestRoutingRules": [
                 {
-                  "Name": "rule1",
+                  "Name": "Temp",
                   "properties": {
                     "RuleType": "Basic",
                     "httpListener": {
-                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/dummy')]"
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/httpListeners/Temp')]"
                     },
                     "backendAddressPool": {
-                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/dummy')]"
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendAddressPools/Temp')]"
                     },
                     "backendHttpSettings": {
-                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/dummy')]"
+                      "id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('applicationGatewayName')), '/backendHttpSettingsCollection/Temp')]"
                     }
                   }
                 }
