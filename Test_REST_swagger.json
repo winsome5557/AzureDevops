@@ -1,0 +1,31 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Gateway Test API (Rest)"
+  },
+  "paths": {
+    "/TestData": {
+      "post": {
+        "tags": [
+          "TestData"
+        ],
+        "description": "Allows to post test Data",
+        "operationId": "addTestData",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid Data"
+          }
+        }
+      }
+    }
+  }
+}
